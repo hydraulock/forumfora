@@ -1,0 +1,344 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+
+.gum-search-bar{
+    height: 45px;
+    text-indent: 30px;
+    border-radius: 50px;
+}
+.fa-magnifying-glass{
+    left: 20px;
+}
+
+
+
+.container-connect{
+    background-color: #F8F8F8;
+}
+@media (max-width: 767px) {
+    .bg-color-change {
+        background-color: #337b9e;
+        width: 100%;
+        
+        /* Background color for small screens and up */
+    }
+}
+
+/**form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+*/
+
+.services-container{
+    overflow-x: auto;
+}
+.services-container::-webkit-scrollbar{
+    width: 0;
+}
+.services-container::-webkit-scrollbar-track{
+    background-color: transparent;
+}
+.services-container::-webkit-scrollbar-thumb{
+    background-color: transparent;
+}
+
+
+
+
+
+
+.category-nav-container{
+    background-color: #C1D8EE;
+}
+.category-nav::-webkit-scrollbar{
+    display: none;
+}
+.category-nav button{
+    color:#507395;
+    background-color: #C1D8EE;
+    min-width: 160px;
+}
+
+
+.container-category{
+    overflow: auto;
+}
+.container-category::-webkit-scrollbar {
+    width: 0;
+}
+
+.container-category::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.container-category::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+.container-creation{
+    background-color: #EEEEEE;
+}
+p.section-title{
+    font-size: 20px;
+}
+.img-box {
+    border: 2px dashed #BEBEBE;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    overflow: hidden;
+}
+.img-box .input-img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.input-img .fa-plus {
+
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #F0F0F0;
+    font-size: 30px;
+}
+
+#delete-btn{
+    top: 5px;
+    right: 5px;
+    color: #337b9e;
+    cursor: pointer;
+}
+#delete-btn:hover{
+    color: #FF4545;
+}
+
+.image-uploaded{
+    max-height: 156px ;
+}
+
+.detail-action-like:hover i{
+    color: #FFF119;
+}
+.detail-action-signal:hover i{
+    color: #FF4545;
+}
+
+.owner-infos-top{
+    z-index: 30;
+    top: 20px;
+}
+.owner-infos{
+    top: 20px;
+
+}
+
+.same-item{
+    width: 210px;
+    margin-right: 20px;
+}
+
+.same-category-container::-webkit-scrollbar {
+    display: none;
+}
+@media (max-width:900px){ 
+.same-category-container::-webkit-scrollbar {
+        display: block;
+    }
+}
+
+.same-category-container button {
+    position: absolute;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #A2A2A2;
+    z-index: 3;
+
+}
+
+.same-category-container button:disabled {
+    opacity: 0.2;
+}
+
+.same-category-container button#right2 {
+    right: 0;
+    bottom: 50%;
+}
+
+.same-category-container button#left2 {
+    left: 0;
+    bottom: 50%;
+}
+
+.same-item-container .related-title{
+    display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        
+        text-overflow: ellipsis;
+        overflow: hidden;
+        line-clamp: 1;
+}
+
+.gum-item-title{
+    display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    line-clamp: 2;
+        font-weight: 500;
+        white-space: pre-wrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+}
+.gum-item-detail{
+    font-size: 15px;
+}
+.gum-item-price{
+    color: #337b9e;
+    font-size: 18px;
+}
+.gum-item-date{
+    font-size: 13px;
+}
+.gum-save-btn{
+    width: 50px;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        height: 50px;
+        border-radius: 60px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
+        -webkit-box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.75);
+}
+.gum-save-btn:hover{
+    color: #FFF119;
+}
+
+.gum-item-card{
+box-shadow: 0px 0px 12px 0px rgba(182, 182, 182, 0.75);
+    -webkit-box-shadow: 0px 0px 12px 0px rgba(182, 182, 182, 0.75);
+    -moz-box-shadow: 0px 0px 12px 0px rgba(182, 182, 182, 0.75);
+}
+
+.job-container{
+    background-image: url("/static/img/hero-job-2.png");
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 70vh;
+}
+
+/*
+.job-hero-section{
+    box-shadow: 0px 9px 9px 0px rgba(182, 182, 182, 0.35);
+        -webkit-box-shadow: 0px 9px 9px 0px rgba(182, 182, 182, 0.35);
+        -moz-box-shadow: 0px 9px 9px 0px rgba(182, 182, 182, 0.35);
+}
+
+*/
+
+
+
+.main-hero-container{
+    background-image: url("/static/img/hero2.png");
+  
+    background-position: bottom;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 40vh;
+}
+.logo-font{
+    font-family: 'Pacifico', cursive;
+    font-size: 38px;
+}
+.main-hero-text{
+    margin-top: 39%;
+}
+
+
+
+
+
+
+
+
+
+.logo-box{
+    border: 2px dashed #BEBEBE;
+    border-radius: 50% ;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+}
+.input-logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+} 
+.input-logo .fa-plus {
+
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #F0F0F0;
+    font-size: 30px;
+}
+.input-logo .logo-container{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: absolute;
+}
+.logo-container img{
+    object-fit: cover;
+    width: 100%;
+}
+.delete-logo{
+    position: absolute;
+    color: #FF4545;
+    top: 0;
+    right: 0;
+    font-size: 23px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.obj-not-found{
+    background-image: url("/static/img/not-found-2.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}

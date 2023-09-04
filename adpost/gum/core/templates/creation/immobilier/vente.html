@@ -1,0 +1,137 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Creation{% endblock %}
+
+{% block content %}
+
+<section class="container-creation">
+    <div class="container pt-5 d-flex justify-content-center">
+        <div class="col-12 col-xl-6 col-lg-12">
+            <form method="POST" action="{% url 'vente' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container w-100 p-3 border rounded rounded-4 bg-white">
+                    <h2>Poster une annonce</h2>
+                    <h3>Section Immobilière</h3>
+                </div>
+                <div class="container my-2 w-100 p-3 border rounded rounded-4 bg-white">
+                    <h5 class="text-uppercase text-muted">Catégorie *</h5>
+                    <div class="d-flex justify-content-between">
+                        <span>Vente</span>
+                        <span><a class="link-primary text-decoration-none"
+                                href="{% url 'category' %}">Modifier</a></span>
+                    </div>
+                </div>
+                <div class="container my-2 w-100 p-3 border rounded rounded-4 bg-white">
+                    <h5 class="text-uppercase text-muted">Partagez vos photos</h5>
+                    <p style="font-size: small;">( Non obligatoire )</p>
+                    <p class="text-center">Postez jusqu'à 10 photos pour votre article</p>
+                    <div class="w-100 d-flex justify-content-center">
+                        <div class="img-box w-50">
+                            <div class="input-img">
+                                <i id="add" class="fa-solid fa-plus"></i>
+                                <div class="upload">
+                                    Ajoutez une photo
+                                </div>
+                                <input name="product_image" style="display:none;" type="file" multiple>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="images-container" class="d-flex flex-wrap mt-4">
+                        <!--
+                        <div class="col-md-3 col-6 border d-flex align-items-center position-relative image-uploaded">
+                            <span id="delete-btn" class="position-absolute"><i
+                                    class="fa-solid fa-circle-minus"></i></span>
+                            <img class="w-100 h-75 object-fit-contain" src="{% static 'img/person2.jpg' %}" alt="">
+                        </div>
+                        -->
+                    </div>
+
+
+
+
+                </div>
+
+
+
+                <div class="container my-2 w-100 p-3 border rounded rounded-4 bg-white">
+                    <h5 class="text-uppercase text-muted">Description du bien *</h5>
+
+                    <div class="my-3">
+                        <label for="title" class="form-label">Titre *</label>
+                        <input type="text" name="title" id="title" class="form-control">
+                    </div>
+
+                    <div class="my-3">
+                        <label for="description" class="form-label">Description *</label>
+                        <textarea class="form-control item-description" name="description" id="description" cols="30"
+                            rows="10"></textarea>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            <label class="form-label" for="price">Prix *</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" name="price" id="price">
+                                <div class="input-group-text">FCFA</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div>
+                                <label class="form-label" for="type">Type *</label>
+                                <select name="type" id="type" class="form-control" id="">
+                                    <option selected disabled>Choisissez le type de votre bien</option>
+                                    <option value="Appartement">Appartement</option>
+                                    <option value="Villa">Villa</option>
+                                    <option value="Terrain">Terrain</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label class="form-label" for="superficie">Superficie</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="superficie" id="superficie">
+                            <div class="input-group-text">KM²</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="containercontainer my-2 w-100 p-3 border rounded rounded-4 bg-white">
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5 class="text-uppercase text-muted">Vos informations *</h5>
+                        <span><a class="link-primary text-decoration-none" href="#">Modifier</a></span>
+                    </div>
+                    <p class="mb-2 text-muted">Nom d'utilisateur : <span class="fw-bold text-black"> {{ user.username }}
+                        </span>
+                    </p>
+                    <p class="mb-2 text-muted">Email : <span class="fw-bold text-black">{{ user.email }}</span></p>
+                    <p class="mb-2 text-muted">Numéro de téléphone : <span class="fw-bold text-black">
+                            {% if phone_number %}
+                            +225 {{phone_number}}
+                            {% else %}
+                            <span class="text-muted">Aucun numéro engeristré</span>
+                            {% endif %}</span></p>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-danger">Poster votre annonce</button>
+                    </div>
+
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+</section>
+
+
+<script src="{% static 'vanilla_js/creation.js' %}"></script>
+
+{% endblock %}

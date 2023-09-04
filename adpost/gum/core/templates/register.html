@@ -1,0 +1,91 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Inscription{% endblock %}
+
+{% block content %}
+
+
+
+<section class="container-connect">
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col col-sm-12 col bg-white border rounded-5 vh-100 ">
+                <div class="row text-center mt-4">
+
+                </div>
+                <div class="row  justify-content-center ">
+                    <div class="col-md-5 mt-4 col-lg-7 col-sm-12  align-items-center">
+                        <img src="{% static 'img/register-img.png' %}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-md-12 mt-4 col-lg-5 d-flex justify-content-center align-items-center">
+                        <form id="register-form" method="POST" action="{% url 'register' %}"
+                            class="d-flex flex-column align-items-center w-100">
+                            {% csrf_token %}
+                            <h1 class="mb-4 text-primary fw-bold">Inscrivez-vous</h1>
+                            {% if messages %}
+                            <div class="alert alert-danger d-none">
+                                {% for message in messages %}
+                                {{ message }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <div class="form-floating mb-4 w-100 row">
+                                <input class="form-control" type="email" id="email" name="email"
+                                    placeholder="Votre email" required>
+                                <label for="email" class="form-label">Email</label>
+                                <div class="invalid-feedback">L'Email choisi est déjà utilisé.</div>
+                            </div>
+                            <div class="form-floating mb-4 w-100 row">
+                                <input class="form-control" type="text" id="username" name="username"
+                                    placeholder="Votre username" required>
+                                <label for="username" class="form-label">Nom d'utilisateur</label>
+                                <div class="invalid-feedback">Le nom d'utilisateur existe déjà.</div>
+                            </div>
+
+                            <div class="mb-4 w-100 row">
+                                <div class="input-group p-0">
+                                    <div class="input-group-text">+225</div>
+                                    <input class="form-control" type="text" maxlength="11" minlength="11"
+                                        oninput="formatPhoneNumber()" id="phone" name="phone"
+                                        placeholder="Numéro de téléphone">
+                                    <div class="invalid-feedback">Le numéro de téléphone existe déjà.</div>
+                                </div>
+
+                                <p class="form-text mb-0">( Pas obligatoire )</p>
+
+                            </div>
+                            <div class="form-floating mb-4 w-100 row">
+                                <input class="form-control" type="password" id="password1" name="password1"
+                                    placeholder="Votre mot de passe" required>
+                                <label for="password1" class="form-label">Mot de passe</label>
+
+                            </div>
+                            <div class="form-floating mb-4 w-100 row">
+                                <input class="form-control" type="password" id="password2" name="password2"
+                                    placeholder="Votre mot de passe" required>
+                                <label for="password2" class="form-label">Confirmez mot de passe</label>
+                                <div class="invalid-feedback">Les mots de passe ne correspondent pas.</div>
+                            </div>
+
+                            <div class="submit w-100 mb-4">
+                                <button type="submit"
+                                    class="btn border-0 bg-blue btn-primary w-100 border border-2">S'inscire</button>
+                            </div>
+
+                            <div class="link">
+                                Déjà inscrit? <a href="{% url 'login' %}" class="link-dark">Connectez-vous ici!</a>
+                            </div>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'vanilla_js/register.js' %}"></script>
+{% endblock %}

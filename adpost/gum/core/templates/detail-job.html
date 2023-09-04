@@ -1,0 +1,259 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% load humanize %}
+{% block title %}{{job.title}}{% endblock %}
+
+{% block content %}
+
+<section>
+    <div class="container-fluid mt-5">
+        <div class="row">
+
+            <div class="col-12 d-lg-none d-block  position-sticky owner-infos-top">
+                <div class="d-flex justify-content-between px-4 py-2 align-items-center rounded-5 bg-light">
+                    <h5>{{job.owner}}</h5>
+                    <span>
+                        {% if owner_phone_number %}
+                        <span class="rounded-5 bg-secondary mx-2 p-2">
+                            <i class="fa-solid fa-phone"></i>
+                        </span>
+                        <span class="rounded-5 p-2 bg-secondary">
+                            +225 {{owner_phone_number}}
+                        </span>
+                        {% else %}
+                        <span class="rounded-5 bg-secondary mx-2 p-2">
+                            <i class="fa-solid fa-phone-slash"></i>
+                        </span>
+                        <span class="rounded-5 p-2 bg-secondary text-muted">
+                            Aucun numéro enregistré
+                        </span>
+                        {% endif %}
+                    </span>
+                    <button class="btn btn-light rounded-5" data-bs-toggle="modal" data-bs-target="#modal-owner"><i
+                            class="fa-solid fa-ellipsis-vertical"></i></button>
+                </div>
+                <div class="modal fade " id="modal-owner">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                {{job.owner}}
+                                <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                Body
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-sm-12 col-lg-7 ms-lg-5">
+                <div class="col-12 col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Acceuil</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'jobs' %}">Emplois</a></li>
+                            <li class="breadcrumb-item"><a href="#">{{job.category}}</a></li>
+                            <li class="breadcrumb-item"><a href="#">{{job.type}}</a></li>
+                            <li class="breadcrumb-item"><a href="#">{{job.heures}}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{job.title}}</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between">
+                    <h3> {{job.title}} </h3>
+                    {% if job.job_logo %}
+                    <div class="w-25 bg-white">
+                        <img class="w-100" src="{{ job.job_logo.url }}" alt="">
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="col">
+
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Posté</span>
+                        <span> {{job.date|simplified_timesince }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Recherche</span>
+                        <span>{{job.type}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Heures</span>
+                        <span>{{job.heures}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Fin de disponibilité</span>
+                        <span>{{job.period}}</span>
+                    </li>
+                </ul>
+                <div class="container-fluid border p-3 rounded-5 bg-light">
+                    <div class="d-flex">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item fw-bold">
+                                Rémunération
+                            </li>
+                            <li class="list-group-item">
+                                {{job.salary}}
+                            </li>
+                        </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item fw-bold">
+                                Langue(s) Requise(s)
+                            </li>
+                            {% for langue in job.langues.all %}
+                            {% if langue %}
+                            <li class="list-group-item">
+                                {{langue}}
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item fw-bold">
+                                Niveau
+                            </li>
+                            {% for niveau in job.niveau.all %}
+                            {% if niveau %}
+                            <li class="list-group-item">
+                                {{niveau}}
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                </div>
+
+
+
+                <div class="container-fluid mt-5 border rounded-5 pt-3 bg-light">
+                    <h3>Description</h3>
+                    <p>{{job.description}}</p>
+
+                    <p>ID : <span class="fw-bold">{{job.id}}</span></p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4 d-none d-lg-block">
+                <div class="container-fluid position-sticky owner-infos">
+                    <div class="border rounded-5 d-flex p-3 align-items-center justify-content-between">
+                        <h4>{{job.owner}}</h4>
+                        <span class="text-muted" style="font-size: 18px;"><i class="fa-solid fa-user"></i></span>
+                    </div>
+                    <div class="border rounded-5 px-3 d-flex flex-column my-3 py-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <a class="link link-underline-opacity-50 link-primary" href="#">Voir toutes les annonces</a>
+                            <i style="font-size: 20px;" class=" fa-solid fa-bolt"></i>
+                        </div>
+                        <h5 class="text-center mb-4">Contacter {{job.owner}}</h5>
+
+                        {% if owner_phone_number %}
+                        <div class="d-flex justify-content-between align-items-center bg-light mb-4">
+                            <span>+225 {{owner_phone_number}}</span>
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        {% else %}
+                        <div class="text-muted d-flex justify-content-between align-items-center mb-4 bg-light">
+                            <span>Aucun numéro enregistré</span>
+                            <i class="fa-solid fa-phone-slash"></i>
+                        </div>
+                        {% endif %}
+
+                        {% if job.website %}
+                        <h6 class="text-center">Visiter le site web</h6>
+                        <div class="d-flex justify-content-center align-items-center bg-light mb-4">
+                            <span style="font-size: 15px;"><a href="{{job.website}}">{{job.website}}</a></span>
+                        </div>
+                        {% else %}
+                        <div class="text-muted d-flex justify-content-between align-items-center mb-4 bg-light">
+                            <span>Aucun site internet</span>
+                        </div>
+                        {% endif %}
+
+                        <h6 class="text-center">Postuler pour cet emplois</h6>
+                        <div><button class="w-100 rounded-5 border-0 btn btn-light"
+                                style="font-size: 30px; color: #337b9e;"><i
+                                    class="fa-solid fa-square-envelope"></i></button></div>
+                    </div>
+                    <div class="border rounded-5 d-flex justify-content-between px-3 py-4">
+                        <div class="btn btn-light rounded-4 detail-action-like" data-bs-toggle="tooltip"
+                            data-bs-title="Test" style="font-size: 30px;"> <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <div class="btn btn-light rounded-4 detail-action-signal" style="font-size: 30px;"><i
+                                class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section>
+    <div class="container-fluid px-5 mt-5">
+        <div class="col">
+            <h5>Ces produits pourraient vous intéresser</h5>
+
+            <div class="container-fluid mt-4 overflow-x-scroll same-category-container">
+
+                <div class="col">
+
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center same-item-container">
+                            {% for job in related_jobs %}
+                            <div class="same-item">
+                                <div class="w-100">
+                                    <a href="{% url 'detail-job' job.slug job.id %}" class="text-decoration-none">
+                                        <div class="card border-0 w-100">
+                                            {% if job.job_logo %}
+                                            <img style="max-height: 200px; object-fit: cover;" class="card-img-top"
+                                                src="{{job.job_logo.url}}" alt="">
+                                            {% else %}
+                                            <img style="max-height: 200px; object-fit: cover;" class="card-img-top"
+                                                src="{% static 'img/empty.png' %}" alt="">
+                                            {% endif %}
+                                            <div class="card-body p-0">
+                                                <h5 class="card-header bg-white border-0 p-0 my-3 related-title">
+                                                    {{job.title}}</h5>
+                                                <p class="card-text"> {{job.salary}}</p>
+                                                <p class="card-footer bg-white border-0 p-0">
+                                                    {{job.date|simplified_timesince}} </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="{% static 'vanilla_js/detail.js' %}"></script>
+<script>
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+</script>
+
+
+{% endblock %}

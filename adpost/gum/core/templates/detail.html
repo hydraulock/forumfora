@@ -1,0 +1,256 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% load humanize %}
+{% block title %}{{item.title}}{% endblock %}
+
+{% block content %}
+
+<section>
+    <div class="container-fluid mt-5">
+        <div class="row">
+
+            <div class="col-12 d-lg-none d-block  position-sticky owner-infos-top">
+                <div class="d-flex justify-content-between px-4 py-2 align-items-center rounded-5 bg-light">
+                    <h5>{{item.owner}}</h5>
+                    <span>
+                        {% if owner_phone_number %}
+                        <span class="rounded-5 bg-secondary mx-2 p-2">
+                            <i class="fa-solid fa-phone"></i>
+                        </span>
+                        <span class="rounded-5 p-2 bg-secondary">
+                            +225 {{owner_phone_number}}
+                        </span>
+                        {% else %}
+                        <span class="rounded-5 bg-secondary mx-2 p-2">
+                            <i class="fa-solid fa-phone-slash"></i>
+                        </span>
+                        <span class="rounded-5 p-2 bg-secondary text-muted">
+                            Aucun numéro enregistré
+                        </span>
+                        {% endif %}
+                    </span>
+                    <div class="dropdown">
+                        <button class="btn btn-light rounded-5" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                class="fa-solid fa-ellipsis-vertical"></i></button>
+                        <ul class="dropdown-menu text-end">
+                            <li><a href="#" class="dropdown-item">Voir toutes les annonces <i
+                                        class="fa-solid fa-bolt"></i></a></li>
+                            <li><a href="#" class="dropdown-item">Envoyer un message <i
+                                        class="fa-solid fa-envelope"></i></a></li>
+                            <li><span class="btn dropdown-item">Ajouter aux favoris <i
+                                        class="fa-solid fa-star"></i></span>
+                            </li>
+                            <li><span class="btn dropdown-item">Signaler l'annonce <i
+                                        class="fa-solid fa-circle-exclamation"></i></span></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-12 col-sm-12 col-lg-7 ms-lg-5">
+                <div class="col-12 col-md-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Acceuil</a></li>
+                            <li class="breadcrumb-item"><a href="#">{{item.category}}</a></li>
+                            <li class="breadcrumb-item"><a href="#">{{item.subcategory}}</a></li>
+                            <li class="breadcrumb-item"><a href="#">{{item.type}}</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{item.title}}</li>
+                        </ol>
+                    </nav>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between">
+                    <h3>{{ item.title }}</h3>
+                    <h5>{{ item.price| intcomma }} FCFA</h5>
+                </div>
+
+                <div class="col">
+                    <div id="carouselExampleIndicators" class="carousel carousel-dark slide border">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                                aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            {% if item.primary_image %}
+                            <div class="carousel-item active">
+                                <div class="d-flex justify-content-center">
+                                    <div class="col-9 col-md-6 d-flex justify-content-center">
+                                        <img src="{{ item.primary_image.url }}" class="object-fit-contain w-100"
+                                            style="max-height: 500px; min-height: 500px;" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="carousel-item active">
+                                <div class="d-flex justify-content-center">
+                                    <div class="col-9 col-md-6 d-flex justify-content-center">
+                                        <img src="{% static 'img/empty.png' %}" class="object-fit-contain w-100"
+                                            style="max-height: 500px; min-height: 500px;" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if images %}
+                            {% for image in images %}
+                            <div class="carousel-item">
+                                <div class="d-flex justify-content-center">
+                                    <div class="col-9 col-md-6 d-flex justify-content-center">
+                                        <img src="{{ image.image.url }}" class="object-fit-contain w-100"
+                                            style="max-height: 500px; min-height: 500px;" alt="...">
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Posté</span>
+                        <span>{{ item.date|simplified_timesince }}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Type</span>
+                        <span>{{item.type}}</span>
+                    </li>
+                    {% if characteristics %}
+                    {% for char in characteristics %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>{{char.characteristics}}</span>
+                        <span>{{char.value}}</span>
+                    </li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+                <div class="container-fluid mt-5 border rounded-5 pt-3 bg-light">
+                    <h3>Description</h3>
+                    <p>{{item.description}}</p>
+
+                    <p>ID : <span class="fw-bold">{{item.id}}</span></p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4 d-none d-lg-block">
+                <div class="container-fluid position-sticky owner-infos">
+                    <div class="border rounded-5 d-flex p-3 align-items-center justify-content-between">
+                        <h4>{{item.owner}}</h4>
+                        <span class="text-muted" style="font-size: 18px;"><i class="fa-solid fa-user"></i></span>
+                    </div>
+                    <div class="border rounded-5 px-3 d-flex flex-column my-3 py-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <a class="link link-underline-opacity-50 link-primary" href="#">Voir toutes les annonces</a>
+                            <i style="font-size: 20px;" class=" fa-solid fa-bolt"></i>
+                        </div>
+                        <h5 class="text-center mb-4">Contacter {{item.owner}}</h5>
+
+                        {% if owner_phone_number %}
+                        <div class="d-flex justify-content-between align-items-center bg-light mb-4">
+                            <span>+225 {{owner_phone_number}}</span>
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        {% else %}
+                        <div class="text-muted d-flex justify-content-between align-items-center mb-4 bg-light">
+                            <span>Aucun numéro enregistré</span>
+                            <i class="fa-solid fa-phone-slash"></i>
+                        </div>
+                        {% endif %}
+
+                        <h6 class="text-center">Envoyer un message</h6>
+                        <div><button class="w-100 rounded-5 border-0 btn btn-light"
+                                style="font-size: 30px; color: #337b9e;"><i
+                                    class="fa-solid fa-square-envelope"></i></button></div>
+                    </div>
+                    <div class="border rounded-5 d-flex justify-content-between px-3 py-4">
+                        <div class="btn btn-light rounded-4 detail-action-like" data-bs-toggle="tooltip"
+                            data-bs-title="Test" style="font-size: 30px;"> <i class="fa-solid fa-heart"></i>
+                        </div>
+                        <div class="btn btn-light rounded-4 detail-action-signal" style="font-size: 30px;"><i
+                                class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section>
+    <div class="container-fluid px-5 mt-5">
+        <div class="col">
+            <h5>Ces produits pourraient vous intéresser</h5>
+
+            <div class="container-fluid mt-4 overflow-x-scroll same-category-container">
+
+                <div class="col">
+
+                    <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center same-item-container">
+                            {% for item in related_items %}
+                            <div class="same-item">
+                                <div class="w-100">
+                                    <a href="{% url 'detail' item.slug item.id %}" class="text-decoration-none">
+                                        <div class="card border-0 w-100">
+                                            {% if item.primary_image %}
+                                            <img style="max-height: 200px; object-fit: cover;" class="card-img-top"
+                                                src="{{item.primary_image.url}}" alt="">
+                                            {% else %}
+                                            <img style="max-height: 200px; object-fit: cover;" class="card-img-top"
+                                                src="{% static 'img/empty.png' %}" alt="">
+                                            {% endif %}
+                                            <div class="card-body p-0">
+                                                <h5 class="card-header bg-white border-0 p-0 my-3 related-title">
+                                                    {{item.title}}</h5>
+                                                <p class="card-text">{{ item.price| intcomma }} FCFA</p>
+                                                <p class="card-footer bg-white border-0 p-0">
+                                                    {{item.date|simplified_timesince }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+<script src="{% static 'vanilla_js/detail.js' %}"></script>
+<script>
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+</script>

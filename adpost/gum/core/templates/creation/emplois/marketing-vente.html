@@ -1,0 +1,223 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Creation{% endblock %}
+
+{% block content %}
+
+<section class="container-creation">
+    <div class="container pt-5 d-flex justify-content-center">
+        <div class="col-12 col-xl-6 col-lg-12">
+            <form method="POST" action="{% url 'marketing-vente' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="container w-100 p-3 border rounded rounded-4 bg-white">
+                    <h2>Poster une annonce</h2>
+                    <h3>Section Emplois</h3>
+                </div>
+                <div class="container my-2 w-100 p-3 border rounded rounded-4 bg-white">
+                    <h5 class="text-uppercase text-muted">Catégorie *</h5>
+                    <div class="d-flex justify-content-between">
+                        <span>Marketing & Vente</span>
+                        <span><a class="link-primary text-decoration-none"
+                                href="{% url 'category' %}">Modifier</a></span>
+                    </div>
+                </div>
+                <div class="container my-2 w-100 p-3 border rounded rounded-4 bg-white">
+                    <h5 class="text-uppercase text-muted">Ajoutez un logo</h5>
+                    <p style="font-size: small;">( Non obligatoire )</p>
+                    <p class="text-center">Postez un logo pour votre entreprise ou votre groupe</p>
+                    <div class="w-100 d-flex justify-content-center">
+                        <div class="position-relative">
+                            <i id="delete" class="fa-solid fa-xmark delete-logo" style="display: none;"></i>
+                            <div class="logo-box">
+                                <div class="input-logo">
+
+                                    <i id="add" class="fa-solid fa-plus"></i>
+                                    <div class="upload text-muted" style="font-size: 15px;">
+                                        Ajoutez un logo
+                                    </div>
+                                    <input name="job_logo" style="display:none;" type="file">
+                                    <div class="logo-container" style="display: none;">
+                                        <img id="uploaded-image" src="#" alt="">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+                <div class="container my-2 w-100 p-3 border rounded rounded-4 bg-white">
+                    <h5 class="text-uppercase text-muted">Description de l'annonce *</h5>
+
+                    <div class="my-3">
+                        <label for="title" class="form-label">Titre *</label>
+                        <input type="text" name="title" id="title" class="form-control">
+                    </div>
+
+                    <div class="my-3">
+                        <label for="description" class="form-label">Description *</label>
+                        <textarea class="form-control item-description" name="description" id="description" cols="30"
+                            rows="10"></textarea>
+                    </div>
+
+                    <div class="row mt-5 mb-4 border-top border-bottom py-3">
+                        <h6 class="mb-3">Langue(s) requise(s)</h6>
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="form-check">
+                                <label class="form-check-label" for="french">Français</label>
+                                <input class="form-check-input" type="checkbox" id="french" name="l1" value="Français">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="form-check">
+                                <label class="form-check-label" for="english">Anglais</label>
+                                <input class="form-check-input" type="checkbox" id="english" name="l2" value="Anglais">
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-6 mb-3">
+                            <div class="form-check">
+                                <label class="form-check-label" for="dutch">Allemand</label>
+                                <input class="form-check-input" type="checkbox" id="dutch" name="l3" value="Allemand">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3 ">
+                        <div class="col-md-6 col-12">
+                            <label class="form-label" for="type">Type de poste *</label>
+                            <select class="form-select" id="type" name="type">
+                                <option selected disabled>Sélectionner</option>
+                                <option value="Stage">Stage</option>
+                                <option value="Salarié">Salarié</option>
+                                <option value="Apporteur d'affaire">Apporteur d'affaire</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div>
+                                <label class="form-label" for="contract_type">Type de contrat *</label>
+                                <select id="contract_type" name="contract_type" class="form-select">
+                                    <option selected disabled>Sélectionner</option>
+                                    <option value="CDI">Type CDI</option>
+                                    <option value="CDD">Type CDD</option>
+                                    <option value="Temps partiel">A temps partiel</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="salary">Rémunération *</label>
+                            <select name="salary" id="salary" class="form-select">
+                                <option value="Rémunéré" selected>Rémunéré</option>
+                                <option value="Bénévolat">Bénévolat</option>
+                                <option value="Tout frais à charge">Tous frais à charge</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="heures">Heures *</label>
+                            <select name="heures" id="heures" class="form-select">
+                                <option value="Full-time" selected>Full-time</option>
+                                <option value="Mi-temps">Mi-temps</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-5 mb-4 border-top border-bottom py-3">
+                        <h6 class="mb-3">Niveau</h6>
+                        <div class="col-md-4 mb-3 col-6">
+                            <div class="form-check">
+                                <label class="form-check-label" for="Aucun">Aucun niveau requis</label>
+                                <input class="form-check-input" type="checkbox" id="Aucun" name="nv0"
+                                    value="Aucun niveau requis" checked>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 col-6">
+                            <div class="form-check">
+                                <label class="form-check-label" for="brevet">Brevet scolaire</label>
+                                <input class="form-check-input" type="checkbox" id="brevet" name="nv1" value="Brevet">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 col-6">
+                            <div class="form-check">
+                                <label class="form-check-label" for="bac">Baccalauréat</label>
+                                <input class="form-check-input" type="checkbox" id="bac" name="nv2"
+                                    value="Baccalauréat">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 col-6">
+                            <div class="form-check">
+                                <label class="form-check-label" for="bachelor">Bachelor</label>
+                                <input class="form-check-input" type="checkbox" id="bachelor" name="nv3"
+                                    value="Bachelor">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 col-6">
+                            <div class="form-check">
+                                <label class="form-check-label" for="licence">Licence</label>
+                                <input class="form-check-input" type="checkbox" id="licence" name="nv4" value="Licence">
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 col-6">
+                            <div class="form-check">
+                                <label class="form-check-label" for="Master">Master</label>
+                                <input class="form-check-input" type="checkbox" id="Master" name="nv5" value="Master">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" for="period">Fin de disponibilité</label>
+                        <input type="date" id="period" name="period" class="form-control">
+                    </div>
+                </div>
+
+                <div class="container my-2 w-100 p-3 border rounded rounded-4 bg-white">
+                    <h5 class="text-muted">Avez-vous un site internet?</h5>
+                    <div class="col-12 my-3">
+                        <label class="form-label" for="website">Site Internet</label>
+                        <div class="input-group">
+                            <div class="input-group-text">URL : </div>
+                            <input type="text" id="website" name="website" class="form-control"
+                                placeholder="ie : https://www.votre-site.com/">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container my-2 w-100 p-3 border rounded rounded-4 bg-white">
+
+                    <div class="d-flex justify-content-between mb-3">
+                        <h5 class="text-uppercase text-muted">Vos informations *</h5>
+                        <span><a class="link-primary text-decoration-none" href="#">Modifier</a></span>
+                    </div>
+                    <p class="mb-2 text-muted">Nom d'utilisateur : <span class="fw-bold text-black"> {{ user.username }}
+                        </span>
+                    </p>
+                    <p class="mb-2 text-muted">Email : <span class="fw-bold text-black">{{ user.email }}</span></p>
+                    <p class="mb-2 text-muted">Numéro de téléphone : <span class="fw-bold text-black">
+                            {% if phone_number %}
+                            +225 {{phone_number}}
+                            {% else %}
+                            <span class="text-muted">Aucun numéro engeristré</span>
+                            {% endif %}</span></p>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-danger">Poster votre annonce</button>
+                    </div>
+
+                </div>
+
+
+            </form>
+        </div>
+
+    </div>
+</section>
+
+
+<script src="{% static 'vanilla_js/creation-job.js' %}"></script>
+
+{% endblock %}

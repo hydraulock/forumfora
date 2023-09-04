@@ -1,0 +1,345 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | elefento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'assets/css2/style.css' %}">
+    <link rel="stylesheet" href="{% static 'vanilla_css/main.css' %}">
+</head>
+
+<body>
+    <header>
+        <div class="col">
+            {% if user.is_authenticated %}
+            <div class="navbar navbar-expand-md border-bottom">
+                <div class="container">
+                    <a href="{% url 'home' %}" class="navbar-brand ">
+                        <h5 class="logo-font" style="font-size:30px ;">elefento</h5>
+                    </a>
+                    <button class="navbar-toggler btn border-0" data-bs-toggle="collapse" data-bs-target="#nav"
+                        aria-controls="nav" aria-label="Expand Navigation"><span
+                            class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="nav">
+                        <ul class="navbar-nav d-flex align-items-center justify-content-center w-100">
+                            <li class="nav-item ">
+                                <button class="btn" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-nav" aria-controls="collapse-nav" aria-expanded="false"><i
+                                        class="fa-solid fa-magnifying-glass"></i></button>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'category' %}" class="nav-link d-flex align-items-center m-2">Vendre <i
+                                        style="margin-left: 10px;" class="fa-solid fa-rocket"></i></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{% url 'annonces' %}"
+                                    class="nav-link d-flex align-items-center m-2 disabled">Annonces
+                                    <i style="margin-left: 10px;" class="fa-solid fa-bolt"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link d-flex align-items-center m-2 disabled">Alertes <i
+                                        style="margin-left: 10px;" class="fa-solid fa-bell"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'profile' %}" class="nav-link d-flex align-items-center m-2">Profil <i
+                                        style="margin-left: 10px;" class="fa-solid fa-circle-user"></i></a>
+                            </li>
+                            <li class="nav-item d-block d-md-none">
+                                <button class="btn btn-lg"><a href="{% url 'logout' %}" class="btn-link"><i
+                                            class="fa-solid fa-right-from-bracket"></i></a></button>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <ul class="navbar-nav text-center d-none d-md-block">
+                        <button class="btn btn-lg"><a href="{% url 'logout' %}" class="btn-link"><i
+                                    class="fa-solid fa-right-from-bracket"></i></a></button>
+                    </ul>
+
+                </div>
+            </div>
+            {% else %}
+            <div class="navbar navbar-expand border-bottom">
+                <div class="container">
+                    <a href="{% url 'home' %}" class="navbar-brand ">
+                        <h5 class="logo-font" style="font-size: 30px;">elefento</h5>
+                    </a>
+                    <ul class="navbar-nav d-flex align-items-center justify-content-center">
+                        <li class="nav-item ">
+                            <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-nav"
+                                aria-controls="collapse-nav" aria-expanded="false"><i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'category' %}" class="nav-link m-2">Vendre</a>
+                        </li>
+
+                    </ul>
+
+                    <ul class="navbar-nav d-flex align-items-center fw-semibold justify-content-center">
+                        <li class="nav-item d-none d-sm-block">
+                            <a href="{% url 'login' %}" class="nav-link">Se
+                                connecter</a>
+                        </li>
+                        <li class="nav-item d-block d-sm-none">
+                            <a href="{% url 'login' %}" class="nav-link me-3 rounded-start-4"><i
+                                    class="fa-solid fa-right-to-bracket"></i></a>
+                        </li>
+                        <li class="nav-item d-none d-sm-block">
+                            <a href="{% url 'register' %}"
+                                class="nav-link border border-black rounded-2 ">S'inscrire</a>
+                        </li>
+                        <li class="nav-item d-block d-sm-none">
+                            <a href="{% url 'register' %}" class="nav-link  rounded-end-4 "><i
+                                    class="fa-solid fa-house-user"></i></a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+
+
+
+
+        <div class="collapse" id="collapse-nav">
+            <div class="navbar navbar-expand border-bottom d-flex align-items-center justify-content-center">
+                <form class=" position-relative w-50" action="#">
+                    <i class="fa-solid fa-magnifying-glass position-absolute top-50 start-1 translate-middle"></i>
+                    <input class="gum-search-bar form-control w-100" type="search">
+                </form>
+            </div>
+        </div>
+        {% block nav-category %}
+        <div class="container-fluid category-nav-container">
+            <div class="container-fluid d-flex justify-content-center">
+                <div class="d-flex overflow-x-scroll category-nav">
+                    <button class="btn btn-outline-primary px-3 py-4 border-white border-opacity-25 rounded-0"
+                        data-bs-toggle="modal" data-bs-target="#modal-immobilier">
+                        <i class="fa-solid fa-house"></i>
+                        <div>Immobilier</div>
+                    </button>
+                    <div class="modal fade" id="modal-immobilier">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Immobilier
+                                    <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Body
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary px-3 py-4 border-white border-opacity-25 rounded-0"
+                        data-bs-toggle="modal" data-bs-target="#modal-vehicule">
+                        <i class="fa-solid fa-car"></i>
+                        <div>Véhicules</div>
+                    </button>
+                    <div class="modal fade" id="modal-vehicule">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Véhicules
+                                    <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Body
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary px-3 py-4 border-white border-opacity-25 rounded-0"
+                        data-bs-toggle="modal" data-bs-target="#modal-emplois">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <div>Emplois</div>
+                    </button>
+                    <div class="modal fade" id="modal-emplois">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Emplois
+                                    <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Body
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary px-3 py-4 border-white border-opacity-25 rounded-0"
+                        data-bs-toggle="modal" data-bs-target="#modal-services">
+                        <i class="fa-solid fa-wrench"></i>
+                        <div>Services</div>
+                    </button>
+                    <div class="modal fade" id="modal-services">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Services
+                                    <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Body
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary px-3 py-4 border-white border-opacity-25 rounded-0"
+                        data-bs-toggle="modal" data-bs-target="#modal-community">
+                        <i class="fa-solid fa-user-group"></i>
+                        <div>Communauté</div>
+                    </button>
+                    <div class="modal fade" id="modal-community">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Communauté
+                                    <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Body
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary px-3 py-4 border-white border-opacity-25 rounded-0"
+                        data-bs-toggle="modal" data-bs-target="#modal-animaux">
+                        <i class="fa-solid fa-dog"></i>
+                        <div>Animaux</div>
+                    </button>
+                    <div class="modal fade" id="modal-animaux">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Animaux
+                                    <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Body
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary px-3 py-4 border-white border-opacity-25 rounded-0"
+                        data-bs-toggle="modal" data-bs-target="#modal-divers">
+                        <i class="fa-solid fa-couch"></i>
+                        <div>Divers</div>
+                    </button>
+                    <div class="modal fade" id="modal-divers">
+                        <div class="modal-dialog modal-fullscreen">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    Divers
+                                    <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Body
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        {% endblock %}
+
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <div class="container-fluid mt-5">
+        <!-- Footer -->
+        <footer class="text-center text-lg-start text-white" style="background-color: #45526e">
+            <!-- Grid container -->
+            <div class="container-fluid pb-0">
+                <!-- Section: Links -->
+                <section class="">
+                    <!--Grid row-->
+                    <div class="row">
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                            <h6 class=" mb-4 font-weight-bold">
+                                <span class="logo-font">elefento</span>
+                            </h6>
+                        </div>
+                        <!-- Grid column -->
+
+                        <hr class="w-100 clearfix d-md-none" />
+
+                        <!-- Grid column -->
+                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                            <h6 class="text-uppercase mb-4 font-weight-bold">
+                                Liens directs
+                            </h6>
+                            <p>
+                                <a class="text-white">Vendre</a>
+                            </p>
+                            <p>
+                                <a class="text-white">Votre compte</a>
+                            </p>
+                        </div>
+
+                        <!-- Grid column -->
+                        <hr class="w-100 clearfix d-md-none" />
+
+                        <!-- Grid column -->
+                    </div>
+                    <!--Grid row-->
+                </section>
+                <!-- Section: Links -->
+
+                <hr class="my-3">
+
+                <!-- Section: Copyright -->
+                <section class="p-3 pt-0">
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <!-- Grid column -->
+                        <div class="col-md-7 col-lg-8 text-center">
+                            <!-- Copyright -->
+                            <div class="p-3">
+                                © 2023 Copyright:
+                                <a class="text-white" href="{% url 'home' %}">elefento.com</a>
+                            </div>
+                            <!-- Copyright -->
+                        </div>
+
+                    </div>
+                </section>
+                <!-- Section: Copyright -->
+            </div>
+            <!-- Grid container -->
+        </footer>
+        <!-- Footer -->
+    </div>
+    <!-- End of .container -->
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <script src="{% static 'vanilla/main.js' %}"></script>
+
+
+
+</body>
+
+</html>

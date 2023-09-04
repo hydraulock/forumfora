@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% load humanize %}
+{% block title %}info{% endblock %}
+
+{% block content %}
+
+
+<section class="pt-5" style="background-color: #F3F3F3;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2 d-none d-xl-block">
+                <div class="container border p-3 rounded-4 bg-white h-100">
+                    <h5 class="border-bottom pb-2 text-muted">Filtres </h5>
+                    <div class="border-bottom my-3 pb-2 d-flex flex-column">
+                        <h6 class="text-muted">Catégorie <i class="fa-solid fa-box-open"></i></h6>
+                        <button class="btn text-start btn-light">Hauts</button>
+                        <button class="btn text-start btn-light">Bas</button>
+                        <button class="btn text-start btn-light">Chaussures</button>
+                    </div>
+                    <div class="border-bottom my-3 pb-2 d-flex flex-column">
+                        <h6 class="text-muted">Âge</h6>
+                        <button class="btn text-start btn-light">Bébé</button>
+                        <button class="btn text-start btn-light">Enfant</button>
+                        <button class="btn text-start btn-light">Adolescent</button>
+                        <button class="btn text-start btn-light">Adulte</button>
+                    </div>
+                    <div class="border-bottom my-3 pb-2 d-flex flex-column">
+                        <h6 class="text-muted">Genre</h6>
+                        <button class="btn text-start btn-light">Mixte</button>
+                        <button class="btn text-start btn-light">Masculin</button>
+                        <button class="btn text-start btn-light">Féminin</button>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-12 col-xl-9">
+                <div class="container border p-3 rounded-4 bg-white h-100 d-flex flex-column">
+                    <div class="col">
+                        <div class="w-100 d-flex p-4 align-items-center rounded-4 bg-light-subtle mb-3 flex-wrap">
+                            <span class="h5 m-0 mx-3 fw-bold text-primary">{{items.count}} annonce(s) trouvée(s)</span>
+                            <button class="btn btn-light p-1 mx-3 d-flex align-items-center border rounded-4">Filtre 1
+                                <i class="fa-solid fa-xmark ps-2"></i></button>
+                            <button class="btn btn-light p-1 mx-3 d-flex align-items-center border rounded-4">Filtre 2
+                                <i class="fa-solid fa-xmark ps-2"></i></button>
+                            <button class="btn btn-light p-1 mx-3 d-flex align-items-center border rounded-4">Filtre 3
+                                <i class="fa-solid fa-xmark ps-2"></i></button>
+                            <button class="btn btn-light p-1 mx-3 border rounded-4">RESET</button>
+                        </div>
+                        {% if items.count != 0 %}
+                        <div class="w-100 rounded-4 bg-light-subtle vh-100">
+                            <div class="container p-2">
+                                {% for item in items %}
+                                <a href="{% url 'detail' item.slug item.id %}" class="text-decoration-none text-dark">
+                                    <div class="border-bottom border-top w-100 bg-white my-2 p-2 d-flex">
+                                        <div class="me-4">
+                                            <img src="{{ item.primary_image.url }}" alt=""
+                                                style="width: 100%; height: 140px; object-fit: cover;">
+                                        </div>
+                                        <div>
+                                            <h5>{{item.title}}</h5>
+                                            <span class="fw-bold">{{item.type}}</span></span>
+                                            <h6>{{item.price}} FCFA</h6>
+                                        </div>
+
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="obj-not-found vh-100 w-100 rounded-4 bg-light-subtle"></div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+
+
+
+
+{% endblock %}

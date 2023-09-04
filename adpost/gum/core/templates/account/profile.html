@@ -1,0 +1,126 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% load humanize %}
+{% block title %}MyAccount{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #F9F9F9;
+    }
+</style>
+
+
+<section>
+    <div class="col">
+        <div class="container">
+            <div class="col d-md-block d-none">
+                <div class="d-flex justify-content-center mt-5">
+                    <a href="{% url 'annonces' %}" class="px-4 py-3 border text-decoration-none">Mes annonces <i
+                            class="fa-solid fa-bolt"></i></a>
+                    <span href="#" class="px-4 py-3 border text-decoration-none text-muted">Mes alertes <i
+                            class="fa-solid fa-bell"></i></span>
+                    <span href="#" class="px-4 py-3 border text-decoration-none text-muted">Mes favoris <i
+                            class="fa-solid fa-star"></i></span>
+                    <a href="{% url 'profile' %}"
+                        class="px-4 py-3 border text-decoration-none active bg-white border-bottom-0">Mon profil
+                        <i class="fa-solid fa-user"></i></a>
+                </div>
+            </div>
+            <div class="col d-block d-md-none">
+                <div class="d-flex justify-content-center mt-5 w-100">
+                    <a href="{% url 'annonces' %}" class="w-100 text-center py-3 border text-decoration-none"><i
+                            class="fa-solid fa-bolt"></i></a>
+                    <span href="#" class="w-100 text-center py-3 border text-decoration-none text-muted"><i
+                            class="fa-solid fa-bell"></i></span>
+                    <span href="#" class="w-100 text-center py-3 border text-decoration-none text-muted"><i
+                            class="fa-solid fa-star"></i></span>
+                    <a href="{% url 'profile' %}"
+                        class="w-100 text-center py-3 border text-decoration-none active bg-white border-bottom-0"><i
+                            class="fa-solid fa-user"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="container border border-top-0 bg-white py-5">
+            <form method="POST" action="{% url 'profile' %}">
+                {% csrf_token %}
+                <h3 class="text-center">Paramètres <span><i class="fa-solid fa-gear"></i></span> Utilisateur</h3>
+                <div class="d-flex justify-content-center">
+                    <div class="col-xl-6 col-lg-9 col-12">
+                        <div class="container">
+                            <div class="py-3 bg-light">
+                                <label for="username" class="form-label">Nom d'utilisateur</label>
+                                <input type="text" id="username" name="username" class="form-control"
+                                    value="{{user.username}}">
+                            </div>
+                            <div class="py-3">
+                                <label for="username" class="form-label">Numéro de téléphone</label>
+                                {% if phone_number %}
+                                <input type="text" id="phone" name="phone" class="form-control"
+                                    value="{{phone_number}}">
+                                {% else %}
+                                <input type="text" id="phone" name="phone" class="form-control"
+                                    placeholder="Ajouter un numéro de téléphone">
+                                <button class="btn">Ajouter</button>
+                                {% endif %}
+                            </div>
+                            <div class="py-3 bg-light">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" class="form-control" name="email" value="{{user.email}}">
+                            </div>
+                            <div class="py-3">
+                                <label for="cv" class="form-label">Votre CV</label>
+                                <input type="file" class="form-control">
+                            </div>
+                            <div class="py-3 bg-light">
+                                <label for="password">Modifier votre mot de passe</label>
+                                <input type="password" name="newpass" class="form-control">
+                            </div>
+                            <div class="my-3 d-flex justify-content-center">
+                                <button class="btn btn-dark border w-50" data-bs-toggle="modal"
+                                    data-bs-target="#modal-confirm">Modifier</button>
+                            </div>
+                            <div class="modal fade" id="modal-confirm">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4>Confirmer par votre mot de passe</h4>
+                                            <button class="btn-close" data-bs-dismiss="modal"
+                                                data-bs-target="#modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <label for="confirm-pass" class="form-label">Entrez votre mot de
+                                                    passe</label>
+                                                <input type="password" class="form-control" name="password" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="w-100 d-flex justify-content-center">
+                                                <button class="btn btn-primary" type="submit">Confirmer les
+                                                    changements</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+{% endblock %}

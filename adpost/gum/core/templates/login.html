@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+
+
+
+<section class="container-connect">
+    <div class="container  pt-5">
+        <div class="row">
+            <div class="col col-sm-12 bg-white col border rounded-5 vh-100 ">
+                <div class="row text-center mt-4">
+
+                </div>
+                <div class="row  justify-content-center ">
+                    <div class="col-md-12 mt-4 col-lg-5 d-flex justify-content-center align-items-center">
+                        <form id="login-form" method="POST" action="{% url 'login' %}"
+                            class="d-flex flex-column align-items-center w-100">
+                            {% csrf_token %}
+                            <h1 class="mb-4 text-primary fw-bold">Connectez-vous</h1>
+                            {% if messages %}
+                            <div class="alert alert-danger d-none">
+                                {% for message in messages %}
+                                {{ message }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <div class="form-floating mb-4 w-100 row">
+                                <input class="form-control" type="email" id="email" name="email"
+                                    placeholder="Votre email" required>
+                                <label for="email" class="form-label">Email</label>
+                                <div class="invalid-feedback">Email incorrect</div>
+                            </div>
+                            <div class="form-floating mb-4 w-100 row">
+                                <input class="form-control" type="password" id="password" name="password"
+                                    placeholder="Votre mot de passe" required>
+                                <label for="password" class="form-label">Mot de passe</label>
+                                <div class="invalid-feedback">Mot de passe incorrect</div>
+                            </div>
+
+                            <div class="submit w-100 mb-4">
+                                <button type="submit" class="btn btn-primary btn-lg w-100 border border-2">Se
+                                    connecter</button>
+                            </div>
+
+                            <div class="link">
+                                Pas encore inscrit? <a href="{% url 'register' %}" class="link-dark">Inscrivez-vous
+                                    ici!</a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-5 mt-4 col-lg-7 col-sm-12  align-items-center">
+                        <img src="{% static 'img/login-img.png' %}" class="img-fluid" alt="">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="{% static 'vanilla_js/login.js' %}"></script>
+{% endblock %}

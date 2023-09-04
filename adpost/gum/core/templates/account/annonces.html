@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% load humanize %}
+{% block title %}MyAccount{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #F9F9F9;
+    }
+</style>
+
+
+<section>
+    <div class="col">
+        <div class="container">
+            <div class="col d-md-block d-none">
+                <div class="d-flex justify-content-center mt-5">
+                    <a href="{% url 'annonces' %}"
+                        class="px-4 py-3 border text-decoration-none active bg-white border-bottom-0">Mes annonces <i
+                            class="fa-solid fa-bolt"></i></a>
+                    <span href="#" class="px-4 py-3 border text-decoration-none text-muted">Mes alertes <i
+                            class="fa-solid fa-bell"></i></span>
+                    <span href="#" class="px-4 py-3 border text-decoration-none text-muted">Mes favoris <i
+                            class="fa-solid fa-star"></i></span>
+                    <a href="{% url 'profile' %}" class="px-4 py-3 border text-decoration-none">Mon profil
+                        <i class="fa-solid fa-user"></i></a>
+                </div>
+            </div>
+            <div class="col d-block d-md-none">
+                <div class="d-flex justify-content-center mt-5 w-100">
+                    <a href="{% url 'annonces' %}"
+                        class="w-100 text-center py-3 border text-decoration-none active bg-white border-bottom-0"><i
+                            class="fa-solid fa-bolt"></i></a>
+                    <span href="#" class="w-100 text-center py-3 border text-decoration-none text-muted"><i
+                            class="fa-solid fa-bell"></i></span>
+                    <span href="#" class="w-100 text-center py-3 border text-decoration-none text-muted"><i
+                            class="fa-solid fa-star"></i></span>
+                    <a href="{% url 'profile' %}" class="w-100 text-center py-3 border text-decoration-none"><i
+                            class="fa-solid fa-user"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+{% endblock %}
